@@ -1,9 +1,10 @@
 package com.example.service.impl;
 
 import com.example.Dao.UserDao;
-import com.example.model.Trainee;
 import com.example.model.Trainer;
 import com.example.service.TrainerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,36 +12,49 @@ import java.util.List;
 
 @Service
 public class TrainerServiceImpl implements TrainerService {
+    private static final Logger logger = LoggerFactory.getLogger(TrainerServiceImpl.class);
+
     private final UserDao<Trainer> trainerUserDao;
 
     @Autowired
     public TrainerServiceImpl(UserDao<Trainer> trainerUserDao) {
         this.trainerUserDao = trainerUserDao;
     }
+
     @Override
     public void createTrainer(Trainer trainer) {
         trainer.setUsername(generateUsername(trainer));
         trainer.setPassword(generatePassword());
         trainerUserDao.create(trainer);
+        logger.info("Created trainer: {}", trainer.getUsername());
     }
+
     @Override
     public void updateTrainer(Trainer trainer) {
         trainerUserDao.update(trainer);
+        logger.info("Updated trainer: {}", trainer.getUsername());
     }
 
     @Override
     public void deleteTrainer(String username) {
         trainerUserDao.delete(username);
+        logger.info("Deleted trainer with username: {}", username);
     }
 
     @Override
     public Trainer getTrainer(String username) {
-        return trainerUserDao.select(username);
+        Trainer trainer = trainerUserDao.select(username);
+        if (trainer == null) {
+            logger.warn("Trainer with username '{}' not found", username);
+        }
+        return trainer;
     }
 
     @Override
     public List<Trainer> getAllTrainer() {
-        return trainerUserDao.selectAll();
+        List<Trainer> trainers = trainerUserDao.selectAll();
+        logger.debug("Fetched {} trainers", trainers.size());
+        return trainers;
     }
 
     private String generateUsername(Trainer trainer) {
@@ -53,8 +67,8 @@ public class TrainerServiceImpl implements TrainerService {
         }
         return username;
     }
+
     private String generatePassword() {
         return java.util.UUID.randomUUID().toString().replaceAll("-", "").substring(0, 10);
     }
-
 }
