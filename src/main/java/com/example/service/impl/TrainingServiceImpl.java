@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class TrainingServiceImpl implements TrainingService {
+    private final TrainingDao trainingDao;
+
     @Autowired
-    TrainingDao trainingDao;
+    public TrainingServiceImpl(TrainingDao trainingDao) {
+        this.trainingDao = trainingDao;
+    }
     @Override
     public void createTraining(Training training) {
         trainingDao.create(training);

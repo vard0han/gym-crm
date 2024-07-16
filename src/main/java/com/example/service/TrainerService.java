@@ -6,7 +6,7 @@ import com.example.model.Trainer;
 import java.util.List;
 
 public interface TrainerService {
-    void CreateTrainer(Trainer trainer);
+    void createTrainer(Trainer trainer);
     void updateTrainer(Trainer trainer);
     void deleteTrainer(String username);
     Trainer getTrainer(String username);

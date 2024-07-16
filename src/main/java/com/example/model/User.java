@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Data
@@ -12,5 +13,7 @@ public class User {
     private String lastName;
     private String username;
     private String password;
-    private boolean isActive;
+    @JsonProperty("isActive")
+    private boolean active;
+
 }

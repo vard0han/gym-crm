@@ -11,10 +11,14 @@ import java.util.List;
 
 @Service
 public class TrainerServiceImpl implements TrainerService {
+    private final UserDao<Trainer> trainerUserDao;
+
     @Autowired
-    UserDao<Trainer> trainerUserDao;
+    public TrainerServiceImpl(UserDao<Trainer> trainerUserDao) {
+        this.trainerUserDao = trainerUserDao;
+    }
     @Override
-    public void CreateTrainer(Trainer trainer) {
+    public void createTrainer(Trainer trainer) {
         trainer.setUsername(generateUsername(trainer));
         trainer.setPassword(generatePassword());
         trainerUserDao.create(trainer);

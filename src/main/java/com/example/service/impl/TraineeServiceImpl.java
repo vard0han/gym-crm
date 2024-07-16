@@ -10,10 +10,14 @@ import java.util.List;
 
 @Service
 public class TraineeServiceImpl implements TraineeService {
+    private final UserDao<Trainee> traineeUserDao;
+
     @Autowired
-    UserDao<Trainee> traineeUserDao;
+    public TraineeServiceImpl(UserDao<Trainee> traineeUserDao) {
+        this.traineeUserDao = traineeUserDao;
+    }
     @Override
-    public void CreateTrainee(Trainee trainee) {
+    public void createTrainee(Trainee trainee) {
         trainee.setUsername(generateUsername(trainee));
         trainee.setPassword(generatePassword());
         traineeUserDao.create(trainee);
