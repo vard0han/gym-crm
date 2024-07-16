@@ -1,23 +1,29 @@
 package com.example.service.impl;
 
+import com.example.Dao.TrainingDao;
 import com.example.model.Training;
 import com.example.service.TrainingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TrainingServiceImpl implements TrainingService {
+    @Autowired
+    TrainingDao trainingDao;
     @Override
     public void createTraining(Training training) {
-
+        trainingDao.create(training);
     }
 
     @Override
     public Training getTraining(String trainingName) {
-        return null;
+        return trainingDao.select(trainingName);
     }
 
     @Override
     public List<Training> getAllTraining() {
-        return null;
+        return trainingDao.selectAll();
     }
 }
