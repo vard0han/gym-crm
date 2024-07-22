@@ -1,0 +1,58 @@
+{
+  "trainees": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "username": "John.Doe",
+      "password": "password1",
+      "dateOfBirth": "1990-01-01",
+      "address": "123 Main St",
+      "isActive": true
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "username": "Jane.Smith",
+      "password": "password2",
+      "dateOfBirth": "1992-02-02",
+      "address": "456 Elm St",
+      "isActive": true
+    }
+  ],
+  "trainers": [
+    {
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "username": "Alice.Johnson",
+      "password": "password3",
+      "specialization": "Yoga",
+      "isActive": true
+    },
+    {
+      "firstName": "Bob",
+      "lastName": "Williams",
+      "username": "Bob.Williams",
+      "password": "password4",
+      "specialization": "Weightlifting",
+      "isActive": true
+    }
+  ],
+  "trainings": [
+    {
+      "trainingName": "Morning Yoga",
+      "trainerId": "Alice.Johnson",
+      "traineeId": "John.Doe",
+      "trainingType": "Yoga",
+      "trainingDate": "2023-07-12",
+      "trainingDuration": 60
+    },
+    {
+      "trainingName": "Evening Weights",
+      "trainerId": "Bob.Williams",
+      "traineeId": "Jane.Smith",
+      "trainingType": "Weightlifting",
+      "trainingDate": "2023-07-12",
+      "trainingDuration": 90
+    }
+  ]
+}
