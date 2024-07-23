@@ -1,7 +1,7 @@
 package com.example.service;
 
 
-import com.example.model.Trainer;
+import com.example.model.InMemory.Trainer;
 
 import java.util.List;
 

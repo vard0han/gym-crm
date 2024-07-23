@@ -1,8 +1,8 @@
 package com.example.util;
 
-import com.example.model.Trainee;
-import com.example.model.Trainer;
-import com.example.model.Training;
+import com.example.model.InMemory.Trainee;
+import com.example.model.InMemory.Trainer;
+import com.example.model.InMemory.Training;
 
 import java.time.Duration;
 import java.time.LocalDate;

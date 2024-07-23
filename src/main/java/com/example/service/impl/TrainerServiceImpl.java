@@ -1,7 +1,7 @@
 package com.example.service.impl;
 
 import com.example.Dao.UserDao;
-import com.example.model.Trainer;
+import com.example.model.InMemory.Trainer;
 import com.example.service.TrainerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

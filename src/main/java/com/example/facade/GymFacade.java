@@ -1,8 +1,8 @@
 package com.example.facade;
 
-import com.example.model.Trainee;
-import com.example.model.Trainer;
-import com.example.model.Training;
+import com.example.model.InMemory.Trainee;
+import com.example.model.InMemory.Trainer;
+import com.example.model.InMemory.Training;
 import com.example.service.TraineeService;
 import com.example.service.TrainerService;
 import com.example.service.TrainingService;

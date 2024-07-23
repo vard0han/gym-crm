@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.model.Trainee;
+import com.example.model.InMemory.Trainee;
 
 import java.util.List;
 

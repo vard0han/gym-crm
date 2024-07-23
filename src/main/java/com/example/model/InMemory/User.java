@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.model.InMemory;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

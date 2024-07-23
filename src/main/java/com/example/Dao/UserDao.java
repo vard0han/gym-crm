@@ -1,6 +1,7 @@
 package com.example.Dao;
 
-import com.example.model.User;
+import com.example.model.InMemory.User;
+
 
 import java.util.List;
 

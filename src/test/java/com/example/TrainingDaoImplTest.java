@@ -2,7 +2,7 @@ package com.example;
 
 import com.example.Dao.DaoImpl.TrainingDaoImpl;
 import com.example.Dao.InMemoryStorage;
-import com.example.model.Training;
+import com.example.model.InMemory.Training;
 import com.example.util.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
