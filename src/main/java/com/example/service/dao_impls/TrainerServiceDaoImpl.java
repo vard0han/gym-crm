@@ -10,13 +10,16 @@ import com.example.model.Trainer;
 import com.example.model.Training;
 import com.example.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class TrainerServiceDaoImpl implements TrainerService {
     @Autowired
     private UserRepository userRepository;
@@ -45,9 +48,10 @@ public class TrainerServiceDaoImpl implements TrainerService {
         if (trainer.getSpecialization() == null) {
             throw new IllegalArgumentException("Specialization is required");
         }
-        // Add any other required field validations here
+
     }
     @Override
+    @Transactional
     public void createTrainer(Trainer trainer) {
         validateTrainer(trainer);
 
@@ -64,6 +68,7 @@ public class TrainerServiceDaoImpl implements TrainerService {
     }
 
     @Override
+    @Transactional
     public void updateTrainer(Trainer trainer) {
         validateTrainer(trainer);
 
@@ -73,6 +78,7 @@ public class TrainerServiceDaoImpl implements TrainerService {
     }
 
     @Override
+    @Transactional
     public void deleteTrainer(String username) {
         trainerRepository.findByUser_Username(username).ifPresent(trainer -> {
             trainerRepository.delete(trainer);
@@ -91,6 +97,7 @@ public class TrainerServiceDaoImpl implements TrainerService {
     }
 
     @Override
+    @Transactional
     public void changePassword(String username, String newPassword) {
         Optional<Trainer> trainer = trainerRepository.findByUser_Username(username);
         trainer.ifPresent(t -> {
@@ -100,10 +107,17 @@ public class TrainerServiceDaoImpl implements TrainerService {
     }
 
     @Override
-    public void activateDeactivateTrainer(String username, boolean isActive) {
+    @Transactional
+    public void activateDeactivateTrainer(String username, Boolean isActive) {
         Optional<Trainer> trainer = trainerRepository.findByUser_Username(username);
         trainer.ifPresent(t -> {
-            t.getUser().setActive(isActive);
+            AppUser user = t.getUser();
+            if (isActive == null) {
+                user.setActive(!user.isActive());
+            } else {
+                user.setActive(isActive);
+            }
+            userRepository.save(user);
             trainerRepository.save(t);
         });
     }

@@ -13,7 +13,7 @@ public interface TrainerService {
     Trainer getTrainer(String username);
     List<Trainer> getAllTrainer();
     void changePassword(String username, String newPassword);
-    void activateDeactivateTrainer(String username, boolean isActive);
+    void activateDeactivateTrainer(String username, Boolean isActive);
     List<Training> getTrainerTrainings(String username, LocalDate fromDate, LocalDate toDate, String traineeName);
     List<Trainer> getAvailableTrainersForTrainee(String traineeUsername);
 }

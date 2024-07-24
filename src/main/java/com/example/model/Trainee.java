@@ -26,7 +26,7 @@ public class Trainee extends AppUser {
     @JoinColumn(name = "user_id", nullable = false)
     private AppUser user;
 
-    @OneToMany(mappedBy = "trainee")
+    @OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Training> trainings = new HashSet<>();
 
     @ManyToMany(mappedBy = "trainees")

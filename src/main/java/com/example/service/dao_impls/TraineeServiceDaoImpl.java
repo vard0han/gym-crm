@@ -8,12 +8,14 @@ import com.example.Dao.repository.UserRepository;
 import com.example.model.Training;
 import com.example.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TraineeServiceDaoImpl implements TraineeService {
 
     @Autowired
@@ -67,6 +69,7 @@ public class TraineeServiceDaoImpl implements TraineeService {
     }
 
     @Override
+    @Transactional
     public void deleteTrainee(String username) {
         traineeRepository.findByUser_Username(username).ifPresent(trainee -> {
             traineeRepository.delete(trainee);
@@ -85,6 +88,7 @@ public class TraineeServiceDaoImpl implements TraineeService {
     }
 
     @Override
+    @Transactional
     public void changePassword(String username, String newPassword) {
         Optional<Trainee> trainee = traineeRepository.findByUser_Username(username);
         trainee.ifPresent(t -> {
@@ -94,13 +98,21 @@ public class TraineeServiceDaoImpl implements TraineeService {
     }
 
     @Override
-    public void activateDeactivateTrainee(String username, boolean isActive) {
+    @Transactional
+    public void activateDeactivateTrainee(String username, Boolean isActive) {
         Optional<Trainee> trainee = traineeRepository.findByUser_Username(username);
         trainee.ifPresent(t -> {
-            t.getUser().setActive(isActive);
+            AppUser user = t.getUser();
+            if (isActive == null) {
+                user.setActive(!user.isActive());
+            } else {
+                user.setActive(isActive);
+            }
+            userRepository.save(user);
             traineeRepository.save(t);
         });
     }
+
 
     @Override
     public List<Training> getTraineeTrainings(String username, LocalDate fromDate, LocalDate toDate, String trainerName, String trainingType) {
