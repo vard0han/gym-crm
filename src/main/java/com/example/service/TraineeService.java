@@ -1,7 +1,9 @@
 package com.example.service;
 
-import com.example.model.InMemory.Trainee;
+import com.example.model.Trainee;
+import com.example.model.Training;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface TraineeService {
@@ -10,4 +12,7 @@ public interface TraineeService {
     void deleteTrainee(String username);
     Trainee getTrainee(String username);
     List<Trainee> getAllTrainee();
+    void changePassword(String username, String newPassword);
+    void activateDeactivateTrainee(String username, boolean isActive);
+    List<Training> getTraineeTrainings(String username, LocalDate fromDate, LocalDate toDate, String trainerName, String trainingType);
 }

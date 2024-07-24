@@ -1,11 +1,11 @@
 package com.example.service;
 
-import com.example.model.Training;
+import com.example.model.InMemory.Training;
 
 import java.util.List;
 
-public interface TrainingService {
-    void addTraining(Training training);
+public interface TrainingServiceInMemory {
+    void createTraining(Training training);
 
     Training getTraining(String trainingName);
 
