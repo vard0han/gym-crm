@@ -27,8 +27,30 @@ public class TrainerServiceDaoImpl implements TrainerService {
     private TrainingRepository trainingRepository;
     @Autowired
     private TraineeRepository traineeRepository;
+
+
+    private void validateTrainer(Trainer trainer) {
+        if (trainer.getFirstName() == null || trainer.getFirstName().trim().isEmpty()) {
+            throw new IllegalArgumentException("First name is required");
+        }
+        if (trainer.getLastName() == null || trainer.getLastName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name is required");
+        }
+        if (trainer.getUsername() == null || trainer.getUsername().trim().isEmpty()) {
+            throw new IllegalArgumentException("Username is required");
+        }
+        if (trainer.getPassword() == null || trainer.getPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("Password is required");
+        }
+        if (trainer.getSpecialization() == null) {
+            throw new IllegalArgumentException("Specialization is required");
+        }
+        // Add any other required field validations here
+    }
     @Override
     public void createTrainer(Trainer trainer) {
+        validateTrainer(trainer);
+
         AppUser user = new AppUser();
         user.setUsername(generateUsername(trainer));
         user.setPassword(generatePassword());
@@ -43,6 +65,8 @@ public class TrainerServiceDaoImpl implements TrainerService {
 
     @Override
     public void updateTrainer(Trainer trainer) {
+        validateTrainer(trainer);
+
         AppUser user = trainer.getUser();
         userRepository.save(user);
         trainerRepository.save(trainer);

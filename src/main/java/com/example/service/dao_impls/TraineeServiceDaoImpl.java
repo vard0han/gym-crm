@@ -9,6 +9,7 @@ import com.example.model.Training;
 import com.example.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +23,27 @@ public class TraineeServiceDaoImpl implements TraineeService {
     private TraineeRepository traineeRepository;
     @Autowired
     private TrainingRepository trainingRepository;
+
+    private void validateTrainee(Trainee trainee) {
+        if (trainee.getFirstName() == null || trainee.getFirstName().trim().isEmpty()) {
+            throw new IllegalArgumentException("First name is required");
+        }
+        if (trainee.getLastName() == null || trainee.getLastName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name is required");
+        }
+        if (trainee.getUsername() == null || trainee.getUsername().trim().isEmpty()) {
+            throw new IllegalArgumentException("Username is required");
+        }
+        if (trainee.getPassword() == null || trainee.getPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("Password is required");
+        }
+
+    }
     @Override
+    @Transactional
     public void createTrainee(Trainee trainee) {
+        validateTrainee(trainee);
+
         AppUser user = new AppUser();
         user.setUsername(generateUsername(trainee));
         user.setPassword(generatePassword());
@@ -37,7 +57,10 @@ public class TraineeServiceDaoImpl implements TraineeService {
     }
 
     @Override
+    @Transactional
     public void updateTrainee(Trainee trainee) {
+        validateTrainee(trainee);
+
         AppUser user = trainee.getUser();
         userRepository.save(user);
         traineeRepository.save(trainee);
