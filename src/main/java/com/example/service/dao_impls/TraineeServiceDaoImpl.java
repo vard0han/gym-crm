@@ -116,7 +116,7 @@ public class TraineeServiceDaoImpl implements TraineeService {
 
     @Override
     public List<Training> getTraineeTrainings(String username, LocalDate fromDate, LocalDate toDate, String trainerName, String trainingType) {
-        return trainingRepository.findByTrainee_UsernameAndTrainingDateBetweenAndTrainer_NameAndTrainingType_TrainingTypeName(
+        return trainingRepository.findTraineeTrainings(
                 username, fromDate, toDate, trainerName, trainingType);
     }
 

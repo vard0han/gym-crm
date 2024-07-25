@@ -22,7 +22,7 @@ public class TrainingServiceDaoImpl implements TrainingService {
 
     @Override
     public Training getTraining(String trainingName) {
-        return trainingRepository.findByName(trainingName).get();
+        return trainingRepository.findBytrainingName(trainingName).get();
     }
 
     @Override
