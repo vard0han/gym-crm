@@ -33,12 +33,6 @@ public class TraineeServiceDaoImpl implements TraineeService {
         if (trainee.getLastName() == null || trainee.getLastName().trim().isEmpty()) {
             throw new IllegalArgumentException("Last name is required");
         }
-        if (trainee.getUsername() == null || trainee.getUsername().trim().isEmpty()) {
-            throw new IllegalArgumentException("Username is required");
-        }
-        if (trainee.getPassword() == null || trainee.getPassword().trim().isEmpty()) {
-            throw new IllegalArgumentException("Password is required");
-        }
 
     }
     @Override

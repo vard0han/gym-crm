@@ -17,6 +17,9 @@ public class TrainingServiceDaoImpl implements TrainingService {
     @Override
     @Transactional
     public void addTraining(Training training) {
+        if(trainingRepository.findBytrainingName(training.getTrainingName()).isPresent()){
+            throw new IllegalArgumentException("Name is already used");
+        }
         trainingRepository.save(training);
     }
 

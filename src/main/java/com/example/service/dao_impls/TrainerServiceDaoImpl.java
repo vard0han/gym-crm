@@ -39,12 +39,6 @@ public class TrainerServiceDaoImpl implements TrainerService {
         if (trainer.getLastName() == null || trainer.getLastName().trim().isEmpty()) {
             throw new IllegalArgumentException("Last name is required");
         }
-        if (trainer.getUsername() == null || trainer.getUsername().trim().isEmpty()) {
-            throw new IllegalArgumentException("Username is required");
-        }
-        if (trainer.getPassword() == null || trainer.getPassword().trim().isEmpty()) {
-            throw new IllegalArgumentException("Password is required");
-        }
         if (trainer.getSpecialization() == null) {
             throw new IllegalArgumentException("Specialization is required");
         }
