@@ -1,7 +1,7 @@
 package com.example;
 
 import com.example.Dao.UserDao;
-import com.example.model.Trainee;
+import com.example.model.InMemory.Trainee;
 import com.example.service.impl.TraineeServiceImpl;
 import com.example.util.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import java.util.Arrays;
 import java.util.List;

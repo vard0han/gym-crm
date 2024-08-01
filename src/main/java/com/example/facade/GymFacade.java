@@ -1,20 +1,20 @@
 package com.example.facade;
 
-import com.example.model.Trainee;
-import com.example.model.Trainer;
-import com.example.model.Training;
-import com.example.service.TraineeService;
-import com.example.service.TrainerService;
-import com.example.service.TrainingService;
+import com.example.model.InMemory.Trainee;
+import com.example.model.InMemory.Trainer;
+import com.example.model.InMemory.Training;
+import com.example.service.TraineeServiceInMemory;
+import com.example.service.TrainerServiceInMemory;
+import com.example.service.TrainingServiceInMemory;
 
 import java.util.List;
 
 public class GymFacade {
-    private final TrainerService trainerService;
-    private final TraineeService traineeService;
-    private final TrainingService trainingService;
+    private final TrainerServiceInMemory trainerService;
+    private final TraineeServiceInMemory traineeService;
+    private final TrainingServiceInMemory trainingService;
 
-    public GymFacade(TrainerService trainerService, TraineeService traineeService, TrainingService trainingService) {
+    public GymFacade(TrainerServiceInMemory trainerService, TraineeServiceInMemory traineeService, TrainingServiceInMemory trainingService) {
         this.trainerService = trainerService;
         this.traineeService = traineeService;
         this.trainingService = trainingService;
