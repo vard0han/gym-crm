@@ -1,12 +1,12 @@
 package com.example;
 
 import com.example.facade.GymFacade;
-import com.example.model.Trainee;
-import com.example.model.Trainer;
-import com.example.model.Training;
-import com.example.service.TraineeService;
-import com.example.service.TrainerService;
-import com.example.service.TrainingService;
+import com.example.model.InMemory.Trainee;
+import com.example.model.InMemory.Trainer;
+import com.example.model.InMemory.Training;
+import com.example.service.TraineeServiceInMemory;
+import com.example.service.TrainerServiceInMemory;
+import com.example.service.TrainingServiceInMemory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,13 +22,13 @@ import static org.mockito.Mockito.*;
 class GymFacadeTest {
 
     @Mock
-    private TrainerService trainerService;
+    private TrainerServiceInMemory trainerService;
 
     @Mock
-    private TraineeService traineeService;
+    private TraineeServiceInMemory traineeService;
 
     @Mock
-    private TrainingService trainingService;
+    private TrainingServiceInMemory trainingService;
 
     @InjectMocks
     private GymFacade gymFacade;

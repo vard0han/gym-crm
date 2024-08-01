@@ -1,8 +1,8 @@
 package com.example.Dao;
 
-import com.example.model.Trainee;
-import com.example.model.Trainer;
-import com.example.model.Training;
+import com.example.model.InMemory.Trainee;
+import com.example.model.InMemory.Trainer;
+import com.example.model.InMemory.Training;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.fasterxml.jackson.core.type.TypeReference;

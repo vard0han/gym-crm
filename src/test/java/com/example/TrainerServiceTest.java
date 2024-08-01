@@ -1,7 +1,7 @@
 package com.example;
 
 import com.example.Dao.UserDao;
-import com.example.model.Trainer;
+import com.example.model.InMemory.Trainer;
 import com.example.service.impl.TrainerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

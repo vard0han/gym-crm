@@ -1,8 +1,8 @@
 package com.example.service.impl;
 
 import com.example.Dao.TrainingDao;
-import com.example.model.Training;
-import com.example.service.TrainingService;
+import com.example.model.InMemory.Training;
+import com.example.service.TrainingServiceInMemory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TrainingServiceImpl implements TrainingService {
+public class TrainingServiceImpl implements TrainingServiceInMemory {
     private static final Logger logger = LoggerFactory.getLogger(TrainingServiceImpl.class);
 
     private final TrainingDao trainingDao;

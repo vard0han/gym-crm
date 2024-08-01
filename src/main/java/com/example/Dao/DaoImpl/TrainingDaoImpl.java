@@ -2,7 +2,7 @@ package com.example.Dao.DaoImpl;
 
 import com.example.Dao.InMemoryStorage;
 import com.example.Dao.TrainingDao;
-import com.example.model.Training;
+import com.example.model.InMemory.Training;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

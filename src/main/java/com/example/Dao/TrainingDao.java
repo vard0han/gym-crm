@@ -1,6 +1,6 @@
 package com.example.Dao;
 
-import com.example.model.Training;
+import com.example.model.InMemory.Training;
 
 import java.util.List;
 
