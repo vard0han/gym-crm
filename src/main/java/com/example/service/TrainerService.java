@@ -12,7 +12,7 @@ public interface TrainerService {
     void deleteTrainer(String username);
     Trainer getTrainer(String username);
     List<Trainer> getAllTrainer();
-    void changePassword(String username, String newPassword);
+    boolean changePassword(String username,String oldPassword, String newPassword);
     void activateDeactivateTrainer(String username, Boolean isActive);
     List<Training> getTrainerTrainings(String username, LocalDate fromDate, LocalDate toDate, String traineeName);
     List<Trainer> getAvailableTrainersForTrainee(String traineeUsername);

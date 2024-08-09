@@ -83,12 +83,15 @@ public class TraineeServiceDaoImpl implements TraineeService {
 
     @Override
     @Transactional
-    public void changePassword(String username, String newPassword) {
+    public boolean changePassword(String username,String oldPassword, String newPassword) {
         Optional<Trainee> trainee = traineeRepository.findByUser_Username(username);
+        if(!validateLogin(username,oldPassword))
+            return false;
         trainee.ifPresent(t -> {
             t.getUser().setPassword(newPassword);
             traineeRepository.save(t);
         });
+        return true;
     }
 
     @Override
@@ -117,7 +120,7 @@ public class TraineeServiceDaoImpl implements TraineeService {
     @Override
     public boolean validateLogin(String username, String password) {
         Trainee trainee = traineeRepository.findByUser_Username(username).get();
-        if (trainee.getPassword().equals(password)){
+        if (trainee.getUser().getPassword().equals(password)){
             return true;
         }
         return false;

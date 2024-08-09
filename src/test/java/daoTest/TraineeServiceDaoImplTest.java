@@ -101,7 +101,7 @@ public class TraineeServiceDaoImplTest {
         trainee.setActive(true);
 
         traineeService.createTrainee(trainee);
-        traineeService.changePassword("John.Doe", "newpassword");
+        traineeService.changePassword("John.Doe", trainee.getUser().getPassword(), "newpassword");
 
         Trainee found = traineeRepository.findByUser_Username("John.Doe").orElse(null);
         assertThat(found.getUser().getPassword()).isEqualTo("newpassword");

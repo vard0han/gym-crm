@@ -164,7 +164,7 @@ public class TrainerServiceDaoImplTest {
         trainer.setActive(true);
 
         trainerService.createTrainer(trainer);
-        trainerService.changePassword("Jane.Doe", "newpassword");
+        trainerService.changePassword("Jane.Doe", trainer.getUser().getPassword(), "newpassword");
 
         Trainer found = trainerRepository.findByUser_Username("Jane.Doe").orElse(null);
         assertThat(found.getUser().getPassword()).isEqualTo("newpassword");

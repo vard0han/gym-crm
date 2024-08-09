@@ -1,5 +1,6 @@
 package com.example.dto;
 
+import com.example.model.TrainingType;
 import lombok.Data;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class TrainerProfileDto {
     private String firstName;
     private String lastName;
-    private TrainingTypeDto specialization;
+    private TrainingType specialization;
     private boolean isActive;
     private List<TraineeDto> trainees;
 }
