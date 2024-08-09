@@ -15,4 +15,6 @@ public interface TraineeService {
     void changePassword(String username, String newPassword);
     void activateDeactivateTrainee(String username, Boolean isActive);
     List<Training> getTraineeTrainings(String username, LocalDate fromDate, LocalDate toDate, String trainerName, String trainingType);
+
+    boolean validateLogin(String username, String password);
 }

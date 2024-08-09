@@ -1,10 +1,11 @@
 package com.example.dto;
 
+import com.example.model.TrainingType;
 import lombok.Data;
 
 @Data
 public class TrainerRegistrationDto {
     private String firstName;
     private String lastName;
-    private Long specializationId;
+    private TrainingType specialization;
 }

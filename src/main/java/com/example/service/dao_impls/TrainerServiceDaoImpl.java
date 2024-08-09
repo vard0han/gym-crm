@@ -133,6 +133,16 @@ public class TrainerServiceDaoImpl implements TrainerService {
 
         return availableTrainers;
     }
+
+    @Override
+    public boolean validateLogin(String username, String password) {
+        Trainer trainer = trainerRepository.findByUser_Username(username).get();
+        if(trainer.getPassword().equals(password)) {
+            return true;
+        }
+        return false;
+    }
+
     private String generateUsername(Trainer trainer) {
         String baseUsername = trainer.getFirstName() + "." + trainer.getLastName();
         String username = baseUsername;

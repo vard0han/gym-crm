@@ -114,6 +114,15 @@ public class TraineeServiceDaoImpl implements TraineeService {
                 username, fromDate, toDate, trainerName, trainingType);
     }
 
+    @Override
+    public boolean validateLogin(String username, String password) {
+        Trainee trainee = traineeRepository.findByUser_Username(username).get();
+        if (trainee.getPassword().equals(password)){
+            return true;
+        }
+        return false;
+    }
+
     private String generateUsername(Trainee trainee) {
         String baseUsername = trainee.getFirstName() + "." + trainee.getLastName();
         String username = baseUsername;
