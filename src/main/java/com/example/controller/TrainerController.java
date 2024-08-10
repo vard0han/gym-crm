@@ -1,16 +1,20 @@
 package com.example.controller;
 
+import com.example.Mapper.TrainingMapper;
 import com.example.Mapper.trainerMapper;
 import com.example.dto.TrainerDto;
 import com.example.dto.TrainerProfileDto;
 import com.example.dto.TrainerRegistrationDto;
+import com.example.dto.TrainingDto;
 import com.example.model.Trainer;
+import com.example.model.Training;
 import com.example.model.TrainingType;
 import com.example.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +51,7 @@ public class TrainerController {
             @RequestParam String username,
             @RequestParam String firstName,
             @RequestParam String lastName,
-            @RequestParam TrainingType trainingType,
+            @RequestParam final TrainingType trainingType,
             @RequestParam Boolean isActive
             ){
         Trainer trainer = trainerService.getTrainer(username);
@@ -66,5 +70,18 @@ public class TrainerController {
         List<TrainerDto> dtoList = trainers.stream().map(trainerMapper::trainerToDto).collect(Collectors.toList());
         return ResponseEntity.ok(dtoList);
     }
+
+    @GetMapping("/trainings")
+    public ResponseEntity<List<TrainingDto>> getTrainerTrainings(
+            @RequestParam String username,
+            @RequestParam(required = false) LocalDate from,
+            @RequestParam(required = false) LocalDate to,
+            @RequestParam(required = false) String traineeName)
+    {
+        List<Training> trainings = trainerService.getTrainerTrainings(username,from,to,traineeName);
+        List<TrainingDto> trainingDtos = trainings.stream().map(TrainingMapper::trainingToDto).collect(Collectors.toList());
+        return ResponseEntity.ok(trainingDtos);
+    }
+
 
 }

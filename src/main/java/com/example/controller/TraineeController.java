@@ -1,9 +1,13 @@
 package com.example.controller;
 
+import com.example.Mapper.TrainingMapper;
 import com.example.dto.TraineeProfileDto;
 import com.example.dto.TraineeRegistrationDto;
 import com.example.dto.TrainerDto;
+import com.example.dto.TrainingDto;
 import com.example.model.Trainee;
+import com.example.model.Training;
+import com.example.model.TrainingType;
 import com.example.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +17,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.example.Mapper.traineeMapper.*;
 
@@ -45,8 +50,8 @@ public class TraineeController {
             @RequestParam String Username,
             @RequestParam String firstName,
             @RequestParam String lastName,
-            @RequestParam LocalDate dateOfBirth,
-            @RequestParam String address,
+            @RequestParam(required = false) LocalDate dateOfBirth,
+            @RequestParam(required = false) String address,
             @RequestParam Boolean isActive
             ){
         Trainee trainee = traineeService.getTrainee(Username);
@@ -73,4 +78,19 @@ public class TraineeController {
         List<TrainerDto> updatedTrainers = traineeService.updateTraineeTrainers(traineeUsername, trainerUsernames);
         return ResponseEntity.ok(updatedTrainers);
     }
+
+    @GetMapping("/trainings")
+    public ResponseEntity<List<TrainingDto>> getTraineeTrainings(
+            @RequestParam String username,
+            @RequestParam(required = false) LocalDate from,
+            @RequestParam(required = false) LocalDate to,
+            @RequestParam(required = false) String trainerName,
+            @RequestParam(required = false) String trainingType)
+    {
+        List<Training> trainings = traineeService.getTraineeTrainings(username,from,to,trainerName,trainingType);
+        List<TrainingDto> trainingDtoList = trainings.stream().map(TrainingMapper::trainingToDto).collect(Collectors.toList());
+        return ResponseEntity.ok(trainingDtoList);
+    }
+
+
 }
