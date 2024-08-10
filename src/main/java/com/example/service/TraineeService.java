@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dto.TrainerDto;
 import com.example.model.Trainee;
 import com.example.model.Training;
 
@@ -17,4 +18,6 @@ public interface TraineeService {
     List<Training> getTraineeTrainings(String username, LocalDate fromDate, LocalDate toDate, String trainerName, String trainingType);
 
     boolean validateLogin(String username, String password);
+
+    List<TrainerDto> updateTraineeTrainers(String traineeUsername, List<String> trainerUsernames);
 }

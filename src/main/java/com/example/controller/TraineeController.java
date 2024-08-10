@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.dto.TraineeProfileDto;
 import com.example.dto.TraineeRegistrationDto;
+import com.example.dto.TrainerDto;
 import com.example.model.Trainee;
 import com.example.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.example.Mapper.traineeMapper.*;
@@ -64,5 +66,11 @@ public class TraineeController {
     public ResponseEntity<String> deleteTraineeProfile(@RequestParam String username){
         traineeService.deleteTrainee(username);
         return ResponseEntity.ok("200 ok");
+    }
+
+    @PutMapping("/trainers")
+    public ResponseEntity<List<TrainerDto>> updateTraineeTrainers(@RequestParam String traineeUsername, @RequestBody List<String> trainerUsernames){
+        List<TrainerDto> updatedTrainers = traineeService.updateTraineeTrainers(traineeUsername, trainerUsernames);
+        return ResponseEntity.ok(updatedTrainers);
     }
 }

@@ -1,10 +1,13 @@
 package com.example.service.dao_impls;
 
 import com.example.Dao.repository.TraineeRepository;
+import com.example.Dao.repository.TrainerRepository;
 import com.example.Dao.repository.TrainingRepository;
+import com.example.dto.TrainerDto;
 import com.example.model.AppUser;
 import com.example.model.Trainee;
 import com.example.Dao.repository.UserRepository;
+import com.example.model.Trainer;
 import com.example.model.Training;
 import com.example.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TraineeServiceDaoImpl implements TraineeService {
@@ -25,6 +27,9 @@ public class TraineeServiceDaoImpl implements TraineeService {
     private TraineeRepository traineeRepository;
     @Autowired
     private TrainingRepository trainingRepository;
+
+    @Autowired
+    private TrainerRepository trainerRepository;
 
     private void validateTrainee(Trainee trainee) {
         if (trainee.getFirstName() == null || trainee.getFirstName().trim().isEmpty()) {
@@ -123,6 +128,26 @@ public class TraineeServiceDaoImpl implements TraineeService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<TrainerDto> updateTraineeTrainers(String traineeUsername, List<String> trainerUsernames) {
+        Trainee trainee = getTrainee(traineeUsername);
+        Set<Trainer> trainers = new HashSet<>();
+        List<TrainerDto> resp = new ArrayList<>();
+        for(int i=0;i<trainerUsernames.size();i++){
+            Trainer trainer = trainerRepository.findByUser_Username(trainerUsernames.get(i)).get();
+            trainers.add(trainer);
+            TrainerDto dto = new TrainerDto();
+            dto.setUsername(trainer.getUsername());
+            dto.setFirstName(trainer.getFirstName());
+            dto.setLastName(trainer.getLastName());
+            dto.setSpecialization(trainer.getSpecialization());
+            resp.add(dto);
+        }
+        trainee.setTrainers(trainers);
+        updateTrainee(trainee);
+        return resp;
     }
 
     private String generateUsername(Trainee trainee) {

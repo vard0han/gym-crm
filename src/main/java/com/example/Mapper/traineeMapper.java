@@ -53,4 +53,12 @@ public class traineeMapper {
         trainee.setTrainers(trainers);
         return trainee;
     }
+
+    public static TraineeDto traineeToDto(Trainee trainee) {
+        TraineeDto dto = new TraineeDto();
+        dto.setUsername(trainee.getUser().getUsername());
+        dto.setFirstName(trainee.getUser().getFirstName());
+        dto.setLastName(trainee.getUser().getLastName());
+        return dto;
+    }
 }
