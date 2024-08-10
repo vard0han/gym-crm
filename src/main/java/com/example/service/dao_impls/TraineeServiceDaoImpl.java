@@ -56,7 +56,6 @@ public class TraineeServiceDaoImpl implements TraineeService {
     @Transactional
     public void updateTrainee(Trainee trainee) {
         validateTrainee(trainee);
-
         AppUser user = trainee.getUser();
         userRepository.save(user);
         traineeRepository.save(trainee);
