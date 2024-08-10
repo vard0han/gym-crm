@@ -92,5 +92,9 @@ public class TraineeController {
         return ResponseEntity.ok(trainingDtoList);
     }
 
-
+    @PatchMapping("/activate")
+    public ResponseEntity<String> activateTrainee(@RequestParam String username, @RequestParam boolean isActive){
+        traineeService.activateDeactivateTrainee(username,isActive);
+        return ResponseEntity.ok("200 ok");
+    }
 }
