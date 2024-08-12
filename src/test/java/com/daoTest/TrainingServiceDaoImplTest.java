@@ -1,4 +1,4 @@
-package daoTest;
+package com.daoTest;
 
 import com.example.Dao.repository.TraineeRepository;
 import com.example.Dao.repository.TrainingTypeRepository;

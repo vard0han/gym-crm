@@ -51,13 +51,15 @@ public class TrainerController {
             @RequestParam String username,
             @RequestParam String firstName,
             @RequestParam String lastName,
-            @RequestParam final TrainingType trainingType,
+            @RequestParam final String trainingTypeName,
             @RequestParam Boolean isActive
             ){
         Trainer trainer = trainerService.getTrainer(username);
         trainer.setFirstName(firstName);
         trainer.setUsername(username);
         trainer.setLastName(lastName);
+        TrainingType trainingType = new TrainingType();
+        trainingType.setTrainingTypeName(trainingTypeName);
         trainer.setSpecialization(trainingType);
         trainer.setActive(isActive);
         trainerService.updateTrainer(trainer);

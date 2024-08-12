@@ -1,4 +1,4 @@
-package daoTest;
+package com.daoTest;
 
 import com.example.WebApplication;
 import com.example.model.*;
