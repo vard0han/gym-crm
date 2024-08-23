@@ -92,12 +92,16 @@ public class TrainerServiceDaoImpl implements TrainerService {
 
     @Override
     @Transactional
-    public void changePassword(String username, String newPassword) {
+    public boolean changePassword(String username,String oldPassword, String newPassword) {
         Optional<Trainer> trainer = trainerRepository.findByUser_Username(username);
+        if(!validateLogin(username,oldPassword)) {
+            return false;
+        }
         trainer.ifPresent(t -> {
             t.getUser().setPassword(newPassword);
             trainerRepository.save(t);
         });
+        return true;
     }
 
     @Override
@@ -133,6 +137,16 @@ public class TrainerServiceDaoImpl implements TrainerService {
 
         return availableTrainers;
     }
+
+    @Override
+    public boolean validateLogin(String username, String password) {
+        Trainer trainer = trainerRepository.findByUser_Username(username).get();
+        if(trainer.getUser().getPassword().equals(password)) {
+            return true;
+        }
+        return false;
+    }
+
     private String generateUsername(Trainer trainer) {
         String baseUsername = trainer.getFirstName() + "." + trainer.getLastName();
         String username = baseUsername;
