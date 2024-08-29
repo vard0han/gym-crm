@@ -10,6 +10,7 @@ import com.example.model.Trainer;
 import com.example.model.Training;
 import com.example.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,6 +32,9 @@ public class TrainerServiceDaoImpl implements TrainerService {
     @Autowired
     private TraineeRepository traineeRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     private void validateTrainer(Trainer trainer) {
         if (trainer.getFirstName() == null || trainer.getFirstName().trim().isEmpty()) {
@@ -51,7 +55,7 @@ public class TrainerServiceDaoImpl implements TrainerService {
 
         AppUser user = new AppUser();
         user.setUsername(generateUsername(trainer));
-        user.setPassword(generatePassword());
+        user.setPassword(passwordEncoder.encode(generatePassword()));
         user.setLastName(trainer.getLastName());
         user.setFirstName(trainer.getFirstName());
         user.setActive(trainer.isActive());
@@ -98,7 +102,7 @@ public class TrainerServiceDaoImpl implements TrainerService {
             return false;
         }
         trainer.ifPresent(t -> {
-            t.getUser().setPassword(newPassword);
+            t.getUser().setPassword(passwordEncoder.encode(newPassword));
             trainerRepository.save(t);
         });
         return true;
@@ -141,10 +145,7 @@ public class TrainerServiceDaoImpl implements TrainerService {
     @Override
     public boolean validateLogin(String username, String password) {
         Trainer trainer = trainerRepository.findByUser_Username(username).get();
-        if(trainer.getUser().getPassword().equals(password)) {
-            return true;
-        }
-        return false;
+        return passwordEncoder.matches(password, trainer.getUser().getPassword());
     }
 
     private String generateUsername(Trainer trainer) {

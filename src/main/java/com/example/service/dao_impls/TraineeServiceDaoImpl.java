@@ -11,6 +11,7 @@ import com.example.model.Trainer;
 import com.example.model.Training;
 import com.example.service.TraineeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,6 +32,9 @@ public class TraineeServiceDaoImpl implements TraineeService {
     @Autowired
     private TrainerRepository trainerRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private void validateTrainee(Trainee trainee) {
         if (trainee.getFirstName() == null || trainee.getFirstName().trim().isEmpty()) {
             throw new IllegalArgumentException("First name is required");
@@ -47,7 +51,7 @@ public class TraineeServiceDaoImpl implements TraineeService {
 
         AppUser user = new AppUser();
         user.setUsername(generateUsername(trainee));
-        user.setPassword(generatePassword());
+        user.setPassword(passwordEncoder.encode(generatePassword()));
         user.setLastName(trainee.getLastName());
         user.setFirstName(trainee.getFirstName());
         user.setActive(trainee.isActive());
@@ -87,12 +91,12 @@ public class TraineeServiceDaoImpl implements TraineeService {
 
     @Override
     @Transactional
-    public boolean changePassword(String username,String oldPassword, String newPassword) {
+    public boolean changePassword(String username, String oldPassword, String newPassword) {
         Optional<Trainee> trainee = traineeRepository.findByUser_Username(username);
-        if(!validateLogin(username,oldPassword))
+        if (!validateLogin(username, oldPassword))
             return false;
         trainee.ifPresent(t -> {
-            t.getUser().setPassword(newPassword);
+            t.getUser().setPassword(passwordEncoder.encode(newPassword));
             traineeRepository.save(t);
         });
         return true;
@@ -124,10 +128,7 @@ public class TraineeServiceDaoImpl implements TraineeService {
     @Override
     public boolean validateLogin(String username, String password) {
         Trainee trainee = traineeRepository.findByUser_Username(username).get();
-        if (trainee.getUser().getPassword().equals(password)){
-            return true;
-        }
-        return false;
+        return passwordEncoder.matches(password, trainee.getUser().getPassword());
     }
 
     @Override
